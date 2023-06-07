@@ -1,0 +1,5 @@
+{% load crispy_forms_tags %}
+<form action="{% url 'giving:pledge' project.slug %}" method="post">
+  {% csrf_token %} {{ form|crispy }}
+  <button type="submit" class="btn btn-success">Pledge!</button>
+</form>

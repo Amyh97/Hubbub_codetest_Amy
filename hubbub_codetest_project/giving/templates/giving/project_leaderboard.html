@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block content %}
+<h1>{{ project.title }} Leaderboard</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h2>Leaderboard by amount</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">House</th>
+            <th scope="col">Amount (in &pound;)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in leaderboard_amount %}
+          <tr>
+            <td>{{ row.house_choices }}</td>
+            <td>&pound;{{ row.amount__sum }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm">
+      <h2>Leaderboard by donor</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">House</th>
+            <th scope="col">Amount of donors</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in leaderboard_count %}
+          <tr>
+            <td>{{ row.house_choices }}</td>
+            <td>{{ row.amount__count }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

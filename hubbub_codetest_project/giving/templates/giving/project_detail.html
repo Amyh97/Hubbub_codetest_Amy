@@ -1,0 +1,6 @@
+{% extends "base.html" %} {% block content %}
+<h1>Pledge to '{{ project.title }}'</h1>
+<p>{{ project.description|linebreaks }}</p>
+
+<h2>Pledge to this project</h2>
+{% include "giving/fragments/pledge_form.html" %} {% endblock %}

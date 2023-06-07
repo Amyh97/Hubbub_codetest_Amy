@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block content %}
+<h1>Pick a project to pledge to</h1>
+
+{% if not object_list %}
+<p>No projects added yet</p>
+{% else %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Total</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for obj in object_list %}
+    <tr>
+      <td>{{ obj.title }}</td>
+      <td>&pound;{{ obj.total }}</td>
+      <td>
+        <a href="{% url 'giving:project-detail' obj.slug %}"
+          >Click here to pledge</a
+        >
+        |
+        <a href="{% url 'giving:project-leaderboard' obj.slug %}"
+          >Leaderboard</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %} {% endblock %}
