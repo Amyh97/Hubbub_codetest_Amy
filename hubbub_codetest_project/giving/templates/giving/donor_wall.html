@@ -24,16 +24,19 @@
     <li class="page-item">
       <a class="page-link disabled" href="">Previous</a>
     </li>
-    {% endif %} {% for page_number in page_obj.paginator.page_range %} {% if
-    page_obj.number == page_number %}
-    <li class="page-item">
-      <a class="page-link active" href="#">{{ page_number }}</a>
-    </li>
-    {% else %}
-    <li class="page-item">
-      <a class="page-link" href="?page={{page_number}}">{{ page_number }}</a>
-    </li>
-    {% endif %} {% endfor %} {% if page_obj.has_next %}
+    {% endif %} 
+    {% for page_number in page_obj.paginator.page_range %} 
+      {% if page_obj.number == page_number %}
+      <li class="page-item">
+        <a class="page-link active" href="#">{{ page_number }}</a>
+      </li>
+      {% else %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{page_number}}">{{ page_number }}</a>
+      </li>
+      {% endif %} 
+    {% endfor %} 
+    {% if page_obj.has_next %}
     <li class="page-item">
       <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
     </li>
