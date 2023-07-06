@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=hubbub_codetest_project
+POSTGRES_USER=vViqeqmbUeijrNsIcAxggFWboCGuExoP
+POSTGRES_PASSWORD=ueiFiU82o73OWmkneVJlfDXVrCLKFIVEiSKK5MLGXcKWf1jedVmSyMpfxjtor6Zb
