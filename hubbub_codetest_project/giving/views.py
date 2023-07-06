@@ -64,7 +64,7 @@ class LeaderboardView(DetailView):
 
         if project:
             context["leaderboard_amount"] = (
-                project.projectpledge_set.values("house_choices").annotate(Sum("amount")).order_by("amount__sum")
+                project.projectpledge_set.values("house_choices").annotate(Sum("amount")).order_by("-amount__sum")
             )
             context["leaderboard_count"] = (
                 project.projectpledge_set.values("house_choices").annotate(Count("amount")).order_by("-amount__count")
