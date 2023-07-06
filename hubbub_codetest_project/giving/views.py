@@ -25,6 +25,7 @@ class PledgeView(FormView):
 
     def form_valid(self, form):
         form.save()
+        print(form.save())
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -38,8 +39,8 @@ class PledgeView(FormView):
 
 
 class ProjectListView(ListView):
-    model = Project
     template_name = "giving/project_list.html"
+    model = Project
 
 
 class ProjectDetailView(DetailView):

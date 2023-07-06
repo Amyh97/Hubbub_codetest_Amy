@@ -44,22 +44,8 @@ class Project(AuditModelMixin):
     def __str__(self):
         return self.title
 
-    def cache_key(self):
-        return f"project-total-{self.pk}-{self.slug}"
-
-    def clear_total_cache(self):
-        cache_key = self.cache_key()
-        cache.delete(cache_key)
-
     def total(self):
-        cache_key = self.cache_key()
-        value = cache.get(cache_key)
-        if value is None:
-            LOG.info(f"Not cached, generating {cache_key}")
-            value = self.projectpledge_set.aggregate(Sum("amount")).get("amount__sum", 0)
-            cache.set(cache_key, value)
-        else:
-            LOG.info(f"Using cached value for {cache_key}")
+        value = self.projectpledge_set.aggregate(Sum("amount")).get("amount__sum", 0)
         return value or 0
 
     def save(self, *args, **kwargs):
