@@ -1,6 +1,6 @@
 import logging
 
-from django.core.cache import cache
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import Sum
 from django.utils import timezone
@@ -62,7 +62,7 @@ class ProjectPledge(AuditModelMixin):
         ("Slytherin", "Slytherin"),
     )
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=5, decimal_places=2)
+    amount = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(0)])
     pledgee = models.CharField(max_length=250, blank=True, help_text="Name you wish to pledge under")
     house_choices = models.CharField(
         choices=HOUSE_CHOICES, max_length=50, help_text="School house you want to support", blank=True
