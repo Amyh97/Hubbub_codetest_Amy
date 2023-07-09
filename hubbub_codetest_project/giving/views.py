@@ -107,7 +107,7 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
         url = reverse("giving:project-list")
         return url
     
-class ProjectAddView(CreateView):
+class ProjectAddView(LoginRequiredMixin, CreateView):
     model = Project
     fields = ["title", "description"]
     template_name = "giving/add_project_form.html"
