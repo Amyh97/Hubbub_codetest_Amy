@@ -4,7 +4,7 @@ from typing import Any, Dict
 from django.db.models import Count, Sum
 from django.shortcuts import get_object_or_404
 from django.urls import reverse 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import DetailView, ListView, UpdateView, CreateView, DeleteView
 from django.views.generic.edit import FormView
@@ -84,9 +84,11 @@ class DonorWall(ListView):
     model = ProjectPledge
     paginate_by = 30
 
-class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Project
     fields = ["title", "description"]
+    def test_func(self):
+        return self.request.user.is_superuser
 
     def get_context_data(self, **kwargs): 
         context = super().get_context_data(**kwargs)
@@ -103,17 +105,23 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
         url = reverse("giving:project-list")
         return url
 
-class ProjectDeleteView(LoginRequiredMixin, DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Project
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
     def get_success_url(self):
         url = reverse("giving:project-list")
         return url
     
-class ProjectAddView(LoginRequiredMixin, CreateView):
+class ProjectAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Project
     fields = ["title", "description"]
     template_name = "giving/add_project_form.html"
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
     def get_success_url(self):
         url = reverse("giving:project-list")
