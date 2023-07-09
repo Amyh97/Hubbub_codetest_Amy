@@ -84,14 +84,12 @@ class ProjectUpdateView(UpdateView):
     model = Project
     fields = ["title", "description"]
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs): 
         context = super().get_context_data(**kwargs)
-        x = 0
-        for proj in Project.objects.all():
-            x += 1
-            if proj == context.get("project"):
-                project_id = x
-        project = get_object_or_404(Project, pk=project_id)
+
+        project_id = Project.objects.get(title=context.get("project"))
+
+        project = get_object_or_404(Project, pk=project_id.id)
         initial_data = {"title": context.get("project"),
                         "description": project.description,}
         context["form"] = AddProjectForm(data=initial_data)
