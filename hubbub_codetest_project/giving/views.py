@@ -53,7 +53,10 @@ class ProjectDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         initial_data = {"project": context.get("project")}
         if not self.request.user.is_anonymous:
-            initial_data["pledgee"] = self.request.user
+            if self.request.user.name:
+                initial_data["pledgee"] = self.request.user.name
+            else:
+                initial_data["pledgee"] = self.request.user
         context["form"] = ProjectPledgeForm(data=initial_data)
         return context
 
