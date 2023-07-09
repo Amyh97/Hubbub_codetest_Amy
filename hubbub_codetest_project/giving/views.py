@@ -1,11 +1,12 @@
 import logging
+from typing import Any, Dict
 
 from django.db.models import Count, Sum
 from django.shortcuts import get_object_or_404
 from django.urls import reverse 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import DetailView, ListView, UpdateView
+from django.views.generic import DetailView, ListView, UpdateView, CreateView, DeleteView
 from django.views.generic.edit import FormView
 
 from .forms import ProjectPledgeForm, AddProjectForm
@@ -80,7 +81,7 @@ class DonorWall(ListView):
     model = ProjectPledge
     paginate_by = 30
 
-class ProjectUpdateView(UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     model = Project
     fields = ["title", "description"]
 
@@ -95,6 +96,13 @@ class ProjectUpdateView(UpdateView):
         context["form"] = AddProjectForm(data=initial_data)
         return context
     
+    def get_success_url(self):
+        url = reverse("giving:project-list")
+        return url
+
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
+    model = Project
+
     def get_success_url(self):
         url = reverse("giving:project-list")
         return url
