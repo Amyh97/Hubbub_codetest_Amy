@@ -15,7 +15,11 @@
         <tbody>
           {% for row in leaderboard_amount %}
           <tr>
-            <td>{{ row.house_choices }}</td>
+            {% if row.house_choices == "" %}
+              <td>Anonymous</td>
+            {% else %}
+              <td>{{ row.house_choices }}</td>
+            {% endif %}
             <td>&pound;{{ row.amount__sum }}</td>
           </tr>
           {% endfor %}
@@ -34,7 +38,11 @@
         <tbody>
           {% for row in leaderboard_count %}
           <tr>
+            {% if row.house_choices == "" %}
+            <td>Anonymous</td>
+          {% else %}
             <td>{{ row.house_choices }}</td>
+          {% endif %}
             <td>{{ row.amount__count }}</td>
           </tr>
           {% endfor %}
