@@ -18,16 +18,32 @@
       <td>{{ obj.title }}</td>
       <td>&pound;{{ obj.total }}</td>
       <td>
-        <a href="{% url 'giving:project-detail' obj.slug %}"
-          >Click here to pledge</a
-        >
+        <a href="{% url 'giving:project-detail' obj.slug %}">
+          Click here to pledge
+        </a>
         |
-        <a href="{% url 'giving:project-leaderboard' obj.slug %}"
-          >Leaderboard</a
-        >
+        <a href="{% url 'giving:project-leaderboard' obj.slug %}">
+          Leaderboard
+        </a>
+
+        {% if request.user.is_superuser %}
+        |
+          <a href="{% url 'giving:project-update' obj.slug %}">
+            Edit Project 
+          </a>
+          |
+          <a href="#">
+            Delete Project
+          </a>
+        {% endif %}
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+{% if request.user.is_superuser %}
+  <a href="#" class="btn btn-primary">
+    Add Project
+  </a>
+{% endif %}
 {% endif %} {% endblock %}

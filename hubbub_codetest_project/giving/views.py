@@ -1,11 +1,14 @@
 import logging
 
 from django.db.models import Count, Sum
-from django.urls import reverse
-from django.views.generic import DetailView, ListView
+from django.shortcuts import get_object_or_404
+from django.urls import reverse 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import DetailView, ListView, UpdateView
 from django.views.generic.edit import FormView
 
-from .forms import ProjectPledgeForm
+from .forms import ProjectPledgeForm, AddProjectForm
 from .models import Project, ProjectPledge
 
 log = logging.getLogger(__name__)
@@ -25,7 +28,6 @@ class PledgeView(FormView):
 
     def form_valid(self, form):
         form.save()
-        print(form.save())
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -77,3 +79,24 @@ class DonorWall(ListView):
     template_name = "giving/donor_wall.html"
     model = ProjectPledge
     paginate_by = 30
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    fields = ["title", "description"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        x = 0
+        for proj in Project.objects.all():
+            x += 1
+            if proj == context.get("project"):
+                project_id = x
+        project = get_object_or_404(Project, pk=project_id)
+        initial_data = {"title": context.get("project"),
+                        "description": project.description,}
+        context["form"] = AddProjectForm(data=initial_data)
+        return context
+    
+    def get_success_url(self):
+        url = reverse("giving:project-list")
+        return url
