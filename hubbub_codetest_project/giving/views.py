@@ -106,3 +106,12 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         url = reverse("giving:project-list")
         return url
+    
+class ProjectAddView(CreateView):
+    model = Project
+    fields = ["title", "description"]
+    template_name = "giving/add_project_form.html"
+
+    def get_success_url(self):
+        url = reverse("giving:project-list")
+        return url

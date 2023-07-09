@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 
-from .views import DonorWall, LeaderboardView, PledgeView, ProjectDetailView, ProjectListView, ProjectUpdateView, ProjectDeleteView
+from .views import DonorWall, LeaderboardView, PledgeView, ProjectDetailView, ProjectListView, ProjectUpdateView, ProjectDeleteView, ProjectAddView
 app_name = "giving"
 urlpatterns = [
     path("", ProjectListView.as_view(), name="project-list"),
@@ -12,4 +12,5 @@ urlpatterns = [
     path("<str:slug>/pledge/thanks/", TemplateView.as_view(template_name="giving/thanks.html"), name="pledge-thanks"),
     path("<str:slug>/update", ProjectUpdateView.as_view(), name="project-update"),
     path("<str:slug>/delete", ProjectDeleteView.as_view(), name="project-delete"),
+    path("project-add", ProjectAddView.as_view(), name="project-add")
 ]

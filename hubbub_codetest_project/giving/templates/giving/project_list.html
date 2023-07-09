@@ -42,7 +42,7 @@
   </tbody>
 </table>
 {% if request.user.is_superuser %}
-  <a href="#" class="btn btn-primary">
+  <a href="{% url 'giving:project-add' %}" class="btn btn-primary">
     Add Project
   </a>
 {% endif %}
