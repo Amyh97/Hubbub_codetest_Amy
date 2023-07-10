@@ -51,10 +51,16 @@ If the pledgee name is someone's email ideally you would want to slice the name 
 #### How I implemented this improvement: 
 There is no way in the Django template to slice from a character to the end as the if/for loops don't work as neatly as they do in the view/in Python. This meant that I couldn't find the index of the @ and use that to slice. I also looked into adding extra detail to the `ListView` but that didn't seem to be the solution. While this could potentially be done by changing it from a `ListView` to a `DetailView` to allow me to pass extra context through (this way I can use a for loop as normal to get the index). Without massively changing the provided view the easiest way to help provide some privacy around the email was to truncate a x number of characters so the full email is not seen. 
 
-#### Other improvements that could be made
+#### Other improvements that could be made:
 The background of the tiles could be coloured depending on the size of donation, or the house the donation was assigned to, to help make this page more visually appealing. 
 
 ### Other
-Add hubbub favicon from Django, nice little touch
+
+#### Improvement that could be made:
+Add hubbub favicon from the Django one to make it look more on brand. 
+
+#### How I implemented it:
+Change the image stored at `static 'images/favicons/hubbub_favicon.ico'` where `base.html` looks for the favicon. 
+
 
 [Back](README.md)
