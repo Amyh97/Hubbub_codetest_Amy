@@ -5,9 +5,13 @@
     {% for pledge in object_list %}
     <div class="col-sm donation-grid">
       {% if pledge.pledgee %}
-        <p>{{ pledge.pledgee }}</p>
+        {% if '@' in pledge.pledgee %}
+          <p>{{ pledge.pledgee| truncatechars:15 }}</p>
+        {% else %}
+          <p>{{ pledge.pledgee }}</p> 
+        {% endif %}
       {% else %}
-        <P>Anonymous</P> 
+        <p>Anonymous</p>
       {% endif %}
       <p>donated</p>
       <p>&pound;{{ pledge.amount }}</p>
