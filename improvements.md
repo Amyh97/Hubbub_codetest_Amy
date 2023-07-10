@@ -43,6 +43,13 @@ After determining there wasn’t I added a button - looking a tag (using the sam
 #### Further improvements that could be made here: 
 Could turn the leaderboard into a fragment/include and show that on the thank you page as well so it is more engaging/interactive  
 
+### Donor Wall
+
+#### Improvements I would suggest:
+If the pledgee name is someone's email I deally you would want to slice the name at the @ symbol so people's full email addresses aren't on the internet. 
+
+#### How I implemented this improvement: 
+There is no way in the Django template to slice from a character to the end as the if/for loops don't work as neatly as they do in the view/in Python. This meant that I couldn't find the index of the @ and use that to slice. I also looked into adding extra detail to the `ListView` but that didn't seem to be the solution. While this could potentially be done by changing it from a `ListView` to a `DetailView` to allow me to pass extra context through (this way I can use a for loop as normal to get the index). Without massively changing the provided view the easiest way to help provide some privacy around the email was to truncate a x number of characters so the full email is not seen. 
 
 ### Other
 Add hubbub favicon from Django, nice little touch
