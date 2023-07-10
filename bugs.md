@@ -59,7 +59,7 @@ Import the `MinValueValidator` for Django and add `validators=[MinValueValidator
 ### Leaderboard
 
 #### Problem:
-Was rendering leaderboard by amount in the wrong order, so the lowest value at the top.
+The leaderboard by amount table was rendering the wrong way with the lowest values at the top, as opposed to the leaderboard by donor table which was listing the houses with the highest value at the top.
 
 #### Exploration:
 In the LeaderboardView the count was rendering largest to smallest for the leaderboard by donor table and I saw the “-“ in the `.order_by()` so looked up reverse order and that backed up my thought that that was the difference between the correct order and incorrect order. 
@@ -80,7 +80,7 @@ I decided this should be fixed in the template as not to end up offering “Anon
 Add if statements in template so if `row.house_choices == “”` it renders "Anonymous" else it renders `row.house_choices`.
 
 #### Further testing:
-Add more donations against no house and see if it adds to the "Anonymous" row or adds more rows, as expected, it added to the same row rather than create more rows for each unassigned donation.
+Add more donations against no house and see if it adds to the "Anonymous" row or adds more rows. Adding additional rows for each anonymous would be a bug, but as designed, it added to the same row rather than create more rows for each unassigned donation.
 
 
 ### My Profile
@@ -94,6 +94,8 @@ I looked to the pledge form as that’s where the data for the donor wall is cre
 #### Solution: 
 Change the `initial_data` value to have `.name` at the end. However this then left the field blank for users who have not set a name. So I then adjusted this to first check if `self.request.user.name` else use `self.request.user` to provide the email address in the pledgee field.
 
+## Normal user testing: 
+Having done all the testing and bug fixes on an admin account I then repeated the tests on a normal user account and did not encounter any further bugs or issues on this account type. 
 
 ## Other tests considered
 
