@@ -19,3 +19,11 @@ For convenience, you can keep your normal user logged in on Chrome and your supe
 #### Running tests with pytest
 
     $ docker-compose run --rm django pytest
+
+### Bugs
+
+[Here](bugs.md) are the bugs encountered during this challenge and how they were resolved.
+
+### Imporvements
+
+On top of fixing the bugs I felt that some other improvments needed to be made to help better the user experience. Deatils of these improvements can be found [here.](improvements.md)
