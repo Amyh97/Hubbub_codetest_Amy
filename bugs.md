@@ -65,7 +65,7 @@ The leaderboard by amount table was rendering the wrong way with the lowest valu
 In the LeaderboardView the count was rendering largest to smallest for the leaderboard by donor table and I saw the “-“ in the `.order_by()` so looked up reverse order and that backed up my thought that that was the difference between the correct order and incorrect order. 
 
 #### Solution: 
-Add a “-“ to `order_by(“amount_sum”)`.
+Add a “-“ to `order_by(“amount_sum”)` for the leaderboard by amount table.
 
 #### Further testing:
 Checked the number of donations per house and amount donated by that house updated after a donation was made. I then made a donation with no house assigned to see what it did.
